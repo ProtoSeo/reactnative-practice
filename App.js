@@ -1,5 +1,6 @@
 import React from 'react';
 import Cat from './Cat';
+import Cafe from './Cafe';
 import { StyleSheet, View, Text, Image, ScrollView, TextInput } from 'react-native';
 
 const App = () => {
@@ -9,6 +10,7 @@ const App = () => {
       <View>
         <Text>Some more text</Text>
         <Cat/>
+        <Cafe/>
         <Image
           source={{
             uri: 'https://reactnative.dev/docs/assets/p_cat2.png',
