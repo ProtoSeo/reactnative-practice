@@ -1,22 +1,39 @@
-import React from 'react';
-import { Text, View } from 'react-native';
+import React, { Component } from "react";
+import { Button, Text, View } from "react-native";
 
-const Cat = (props) => {
-  return (
-    <View>
-      <Text>Hello, I am {props.name}!</Text>
-    </View>
-  );
+class Cat extends Component {
+  state = { isHungry: true };
+
+  render(props) {
+    return (
+      <View>
+        <Text>
+          I am {this.props.name}, and I am
+          {this.state.isHungry ? " hungry" : " full"}!
+        </Text>
+        <Button
+          onPress={() => {
+            this.setState({ isHungry: false });
+          }}
+          disabled={!this.state.isHungry}
+          title={
+            this.state.isHungry ? "Pour me some milk, please!" : "Thank you!"
+          }
+        />
+      </View>
+    );
+  }
 }
 
-const Cafe = () => {
-  return (
-    <View>
-      <Cat name="Maru" />
-      <Cat name="Jellylorum" />
-      <Cat name="Spot" />
-    </View>
-  );
+class Cafe extends Component {
+  render() {
+    return (
+      <>
+        <Cat name="Munkustrap" />
+        <Cat name="Spot" />
+      </>
+    );
+  }
 }
 
-export default Cafe;
+export default  Cafe;
