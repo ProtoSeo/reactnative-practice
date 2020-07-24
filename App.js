@@ -1,4 +1,5 @@
 import React from 'react';
+import Cat from './Cat';
 import { StyleSheet, View, Text, Image, ScrollView, TextInput } from 'react-native';
 
 const App = () => {
@@ -7,12 +8,12 @@ const App = () => {
       <Text>Some text</Text>
       <View>
         <Text>Some more text</Text>
+        <Cat/>
         <Image
           source={{
             uri: 'https://reactnative.dev/docs/assets/p_cat2.png',
           }}
-          style={styles.view}
-        />
+          style={styles.view}/>
       </View>
       <TextInput
         style={styles.text_view}
