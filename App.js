@@ -1,26 +1,34 @@
-import React from 'react';
+import React ,{useState}from 'react';
 import Cat from './Cat';
 import Cafe from './Cafe';
 import { StyleSheet, View, Text, Image, ScrollView, TextInput } from 'react-native';
 
 const App = () => {
+  const [text, setText] = useState('');
   return (
     <ScrollView>
-      <Text>Some text</Text>
+      <Text>ScrollView</Text>
+      <Cat/>
+      <Cafe/>
       <View>
-        <Text>Some more text</Text>
-        <Cat/>
-        <Cafe/>
+        <Text>View and Image</Text>
         <Image
           source={{
             uri: 'https://reactnative.dev/docs/assets/p_cat2.png',
           }}
-          style={styles.view}/>
+          style={styles.image_view}/>
       </View>
-      <TextInput
-        style={styles.text_view}
-        defaultValue="You can type in me"
-      />
+      <View style={styles.textinput_view}>
+        <TextInput 
+          style={styles.textinput}
+          placeholder="Type here to translate!"
+          onChangeText={text=>setText(text)}
+          defaultValue={text}
+        />
+        <Text style={styles.textstyle}>
+        {text.split(' ').map((word) => word && '🍕').join(' ')}
+        </Text>
+      </View>
     </ScrollView>
   );
 }
@@ -31,9 +39,19 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1
   },
-  view:{
+  image_view:{
     width: 200,
     height: 200 
+  },
+  textinput_view:{
+    padding:10,
+  },
+  textinput:{
+    height:40,
+  },
+  textstyle:{
+    padding:10,
+    fontSize:42
   }
 });
 
