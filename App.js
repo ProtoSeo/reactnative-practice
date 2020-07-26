@@ -1,58 +1,28 @@
-import React ,{useState}from 'react';
-import Cat from './Cat';
-import Cafe from './Cafe';
-import { StyleSheet, View, Text, Image, ScrollView, TextInput } from 'react-native';
+// In App.js in a new project
 
-const App = () => {
-  const [text, setText] = useState('');
+import * as React from 'react';
+import { View, Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+function HomeScreen() {
   return (
-    <ScrollView>
-      <Text>ScrollView</Text>
-      <Cat/>
-      <Cafe/>
-      <View>
-        <Text>View and Image</Text>
-        <Image
-          source={{
-            uri: 'https://reactnative.dev/docs/assets/p_cat2.png',
-          }}
-          style={styles.image_view}/>
-      </View>
-      <View style={styles.textinput_view}>
-        <TextInput 
-          style={styles.textinput}
-          placeholder="Type here to translate!"
-          onChangeText={text=>setText(text)}
-          defaultValue={text}
-        />
-        <Text style={styles.textstyle}>
-        {text.split(' ').map((word) => word && '🍕').join(' ')}
-        </Text>
-      </View>
-    </ScrollView>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Home Screen</Text>
+    </View>
   );
 }
 
-const styles = StyleSheet.create({
-  text_view:{
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1
-  },
-  image_view:{
-    width: 200,
-    height: 200 
-  },
-  textinput_view:{
-    padding:10,
-  },
-  textinput:{
-    height:40,
-  },
-  textstyle:{
-    padding:10,
-    fontSize:42
-  }
-});
+const Stack = createStackNavigator();
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
 
 export default App;
