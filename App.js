@@ -23,6 +23,10 @@ function HomeScreen() {
         iconName = focused
         ? 'ios-list-box'
         : 'ios-list';
+      }else if(route.name === 'TabC'){
+        iconName = focused
+        ? 'ios-add'
+        : 'ios-add';
       }
 return <Ionicons name={iconName} size={size} color={color}     />;
         },
@@ -34,6 +38,7 @@ return <Ionicons name={iconName} size={size} color={color}     />;
     >
         <Tab.Screen name="TabA" component={TabAScreen} />
         <Tab.Screen name="TabB" component={TabBScreen} />
+        <Tab.Screen name="TabC" component={TabCScreen} />
     </Tab.Navigator>
   );
 }
@@ -90,6 +95,15 @@ function TabBScreen() {
     </View>
   );
 }
+function TabCScreen() {
+  return (
+    <View>
+      <Text style={{textAlign: 'center', marginTop: 300}}>
+        Welcome to TabC page!
+      </Text>
+    </View>
+  );
+}
 const Drawer = createDrawerNavigator();
 
 export default class extends React.Component {
@@ -103,7 +117,7 @@ export default class extends React.Component {
       // state 변경
         isLoading:false
       })
-      }, 3000) // 시간. 2초 후 실행
+      }, 1000) // 시간. 1초 후 실행
     }
   render(){
     const {isLoading} = this.state;
@@ -116,5 +130,4 @@ export default class extends React.Component {
       </NavigationContainer>
     )
   }
-  // 
 }
