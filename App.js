@@ -5,7 +5,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator} from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
+import Loading from './Loading';
 const Tab = createBottomTabNavigator();
+
+//Home Screent Tab, Stack 구현되어있음
 function HomeScreen() {
   return (
     <Tab.Navigator
@@ -34,6 +37,8 @@ return <Ionicons name={iconName} size={size} color={color}     />;
     </Tab.Navigator>
   );
 }
+// NotificationScreen
+// DrawerLayer가 나왔을때 Notification을 눌렀을때 나오는 Screen
 function NotificationsScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
@@ -86,13 +91,30 @@ function TabBScreen() {
   );
 }
 const Drawer = createDrawerNavigator();
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="Home" component={HomeScreen} />
-        <Drawer.Screen name="Notifications" component={NotificationsScreen} />
-      </Drawer.Navigator>
-    </NavigationContainer>
-  )
+
+export default class extends React.Component {
+
+  state={
+    isLoading:true
+  }
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+      // state 변경
+        isLoading:false
+      })
+      }, 3000) // 시간. 2초 후 실행
+    }
+  render(){
+    const {isLoading} = this.state;
+    return isLoading ? <Loading/>:(
+      <NavigationContainer>
+        <Drawer.Navigator initialRouteName="Home">
+          <Drawer.Screen name="Home" component={HomeScreen} />
+          <Drawer.Screen name="Notifications" component={NotificationsScreen} />
+        </Drawer.Navigator>
+      </NavigationContainer>
+    )
+  }
+  // 
 }
