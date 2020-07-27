@@ -1,50 +1,70 @@
-// In App.js in a new project
-
 import * as React from 'react';
-import {Button, View, Text } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { View, Text, Button } from 'react-native';
+import { NavigationContainer, DrawerActions } from '@react-navigation/native';
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItemList,
+  DrawerItem,
+} from '@react-navigation/drawer';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-function HomeScreen({navigation}) {
+function HomeScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>Home Screen</Text>
       <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate('Details')}
+        title="Open drawer"
+        onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+      />
+      <Button
+        title="Toggle drawer"
+        onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
       />
     </View>
   );
 }
 
-function DetailsScreen({ navigation }) {
+function Notifications() {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Details Screen</Text>
-      <Button
-        title="Go to Details... again"
-        onPress={() => navigation.push('Details')}
-      />
-      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
-      <Button title="Go back" onPress={() => navigation.goBack()} />
-      <Button
-        title="Go back to first screen in stack"
-        onPress={() => navigation.popToTop()}
-      />
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Notifications Screen</Text>
     </View>
   );
 }
-const Stack = createStackNavigator();
 
-function App() {
+// DrawerView에 무엇을 넣을것인지를 정함
+function CustomDrawerContent(props) {
+  return (
+    <DrawerContentScrollView {...props}>
+      <DrawerItemList {...props} />
+      <DrawerItem
+        label="Close drawer"
+        onPress={() => props.navigation.dispatch(DrawerActions.closeDrawer())}
+      />
+      <DrawerItem
+        label="Toggle drawer"
+        onPress={() => props.navigation.dispatch(DrawerActions.toggleDrawer())}
+      />
+    </DrawerContentScrollView>
+  );
+}
+
+const Drawer = createDrawerNavigator();
+
+function MyDrawer() {
+  return (
+    <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
+      <Drawer.Screen name="Home" component={HomeScreen} />
+      <Drawer.Screen name="Notifications" component={Notifications} />
+    </Drawer.Navigator>
+  );
+}
+
+export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Details" component={DetailsScreen} />
-      </Stack.Navigator>
+      <MyDrawer />
     </NavigationContainer>
   );
 }
-
-export default App;
